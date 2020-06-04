@@ -15,13 +15,13 @@ Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfi
 
 # Content of the repository
 
-- **Snakefile** containing the targeted output and the rules to generate them from the input files.
+- **Snakefile**, containing the targeted output and the rules to generate them from the input files.
 
-- **config/** , folder containing the configuration files making the Snakefile adaptable to any input files, genome and parameter for the rules. Adapt the config file and its reference in the Snakefile.
+- **Fastq/**, folder containing subsetted paired-end fastq files used to test locally the pipeline.
 
-- **Fastq/**, folder containing subsetted paired-end fastq files used to test locally the pipeline. 
+- **genome/**, folder containing a small fragment of chromosome 12 of the tomato genome, to be used for the local test.
 
-- **envs/**, folder containing the environment needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (here : envs/global_env.yaml )
+- **envs/**, folder containing the environments needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (here : envs/global_env.yaml )
 
 - **units.tsv**, is a tab separated value files containing information about the experiment name, the condition of the experiment (control or treatment) and the path to the fastq files relative to the **Snakefile**. **Change this file according to your samples.**
 
@@ -32,7 +32,7 @@ Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfi
 
 First, you need to create an environment for the use of Snakemake with [Conda package manager](https://conda.io/docs/using/envs.html).
 1. Create a virtual environment named "atacseq" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file ~/envs/global_env.yaml`
-2. Then, activate this virtual environment with `source activate BSanalysis`
+2. Then, activate this virtual environment with `conda activate BSanalysis`
 
 The Snakefile will then take care of installing and loading the packages and softwares required by each step of the pipeline.
 
