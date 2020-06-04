@@ -1,5 +1,5 @@
 # Snakemake_plant_methylSeekR
-Snakemake pipeline to adjust the R package methylSeekR to plant genomes
+Snakemake pipeline for analysis of bisulfite-seq data
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥5.2.0-brightgreen.svg)](https://snakemake.bitbucket.io)
 [![Miniconda](https://img.shields.io/badge/miniconda-blue.svg)](https://conda.io/miniconda)
@@ -19,7 +19,7 @@ Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfi
 
 - **config/** , folder containing the configuration files making the Snakefile adaptable to any input files, genome and parameter for the rules. Adapt the config file and its reference in the Snakefile.
 
-- **Fastq/**, folder containing subsetted paired-end fastq files used to test locally the pipeline. Generated using [Seqtk](https://github.com/lh3/seqtk): `seqtk sample -s100 read1.fq 5000 > sub1.fqseqtk sample -s100 read2.fq 5000 > sub2.fq`. RAW fastq or fastq.gz files should be placed here before running the pipeline.
+- **Fastq/**, folder containing subsetted paired-end fastq files used to test locally the pipeline. 
 
 - **envs/**, folder containing the environment needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (here : envs/global_env.yaml )
 
@@ -31,13 +31,13 @@ Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfi
 ## Conda environment
 
 First, you need to create an environment for the use of Snakemake with [Conda package manager](https://conda.io/docs/using/envs.html).
-1. Create a virtual environment named "atacseq" from the `global_env.yaml` file with the following command: `conda env create --name atacseq --file ~/envs/global_env.yaml`
-2. Then, activate this virtual environment with `source activate atacseq`
+1. Create a virtual environment named "atacseq" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file ~/envs/global_env.yaml`
+2. Then, activate this virtual environment with `source activate BSanalysis`
 
 The Snakefile will then take care of installing and loading the packages and softwares required by each step of the pipeline.
 
 ## Configuration file
-The `~/configs/config_tomato_sub.yaml` file specifies the sample list, the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
+The `~/configs.yaml` file specifies the sample list, the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
 
 ## Snakemake execution
 The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defining their order.
@@ -56,8 +56,8 @@ Please pay attention to `--use-conda`, it is required for the installation and l
 To run the pipeline, from the folder containing the Snakefile run the
 
 # Main outputs
-**bed files** containing the unmethylated (UMR) and low methylated (LMR) regions.
-**log files** containing reports of the fastP, BSseeker2 and methylcalling steps.
+- **bed files** containing the unmethylated (UMR) and low methylated (LMR) regions.
+- **log files** containing reports of the fastP, BSseeker2 and methylcalling steps.
 
 # Parameters
 
