@@ -53,7 +53,6 @@ Use the command `snakemake -np` to perform a dry run that prints out the rules a
 Simply type `Snakemake --use-conda` and provide the number of cores with `--cores 10` for ten cores for instance.
 For cluster execution, please refer to the [Snakemake reference](https://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution).
 Please pay attention to `--use-conda`, it is required for the installation and loading of the dependencies used by the rules of the pipeline.
-To run the pipeline, from the folder containing the Snakefile run the
 
 # Main outputs
 - **bed files** containing the unmethylated (UMR) and low methylated (LMR) regions.
