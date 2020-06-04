@@ -7,7 +7,7 @@ Snakemake pipeline for analysis of bisulfite-seq data
 
 # Aim
 
-Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data, with some alterations to make to especially sutable for plant BS samples.
+Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data, with some alterations to make to especially suitable for plant BS samples.
 
 
 
