@@ -148,8 +148,8 @@ rule BSseeker_mapping:
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         log   = RESULT_DIR + "result/{sample}.bam.bs_seeker2_log"
-    params:
-        indexName  = WORKING_DIR + "genome/genome",
+    #params:
+     #   indexName  = WORKING_DIR + "genome/genome",
         #sampleName = sample
     message:
         "mapping reads to genome to bam files."
