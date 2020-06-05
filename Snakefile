@@ -66,8 +66,8 @@ def get_trimmed(wildcards):
 rule all:
     input:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
-        expand(WORKING_DIR + "mapped/{sample}.ATCGmap.gz", sample = SAMPLES),
-        expand(WORKING_DIR + "mapped/{sample}.ATCGmap.gz", sample = SAMPLES),
+        expand(WORKING_DIR + "result/{sample}.ATCGmap.gz", sample = SAMPLES),
+        expand(WORKING_DIR + "result/{sample}_CG.msr", sample = SAMPLES),
 
     message:
         "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
@@ -171,7 +171,7 @@ rule methylation_calling:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         index = WORKING_DIR + "genome/genome.fasta.gz"
     output:
-        atcgmap = WORKING_DIR + "mapped/{sample}.ATCGmap.gz"
+        atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
     message:
         "calling methylation levels"
     params:
