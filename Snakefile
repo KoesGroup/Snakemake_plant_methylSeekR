@@ -66,7 +66,7 @@ def get_trimmed(wildcards):
 rule all:
     input:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
-        WORKING_DIR + "mapped/{sample}.ATCGmap.gz"
+        "result/{sample}_CG.msr",
 
     message:
         "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
@@ -178,8 +178,8 @@ rule methylation_calling:
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/geneome.fa_bowtie/"
     threads: 10
     shell:
-        #"python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
-       "touch {output.atcgmap}"
+        "python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
+
 
 rule split_methylation_types:
     input:
