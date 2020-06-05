@@ -71,7 +71,7 @@ rule all:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES)
 
     message:
-        "Job done! Removing temporary directory"
+        "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
 
 #######
 # Rules
