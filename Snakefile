@@ -170,7 +170,7 @@ rule methylation_calling:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         index = WORKING_DIR + "genome/genome.fasta.gz"
     output:
-        atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
+        atcgmap = RESULT_DIR + "result/{sample}.ATCGmap.gz"
     message:
         "calling methylation levels"
     params:
