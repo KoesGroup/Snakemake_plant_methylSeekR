@@ -178,8 +178,9 @@ rule methylation_calling:
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/geneome.fa_bowtie/"
     threads: 10
     shell:
-        "python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
-       
+        #"python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
+       "touch {output.atcgmap}"
+
 rule split_methylation_types:
     input:
         atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
