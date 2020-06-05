@@ -66,7 +66,7 @@ def get_trimmed(wildcards):
 rule all:
     input:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
-        atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
+        WORKING_DIR + "mapped/{sample}.ATCGmap.gz"
 
     message:
         "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
