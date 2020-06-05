@@ -176,7 +176,7 @@ rule BSseeker_mapping:
 rule methylation_calling:
     input:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
-        index = WORKING_DIR + "genome/genome.fasta.gz"
+        index = WORKING_DIR + "genome/genome.check",
     output:
         atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
     message:
