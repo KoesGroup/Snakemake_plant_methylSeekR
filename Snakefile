@@ -134,7 +134,7 @@ rule fastp:
 # BSseeker2 read alignement
 ###########################
 
-rule index:
+rule BSseeker_build_index:
     input:
         WORKING_DIR + "genome/genome.fasta.gz"
     output:
