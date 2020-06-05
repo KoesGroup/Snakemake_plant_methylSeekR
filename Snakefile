@@ -67,7 +67,7 @@ rule all:
     input:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
         expand(WORKING_DIR + "mapped/{sample}.ATCGmap.gz", sample = SAMPLES),
-        
+        expand(WORKING_DIR + "mapped/{sample}.ATCGmap.gz", sample = SAMPLES),
 
     message:
         "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
@@ -186,10 +186,10 @@ rule split_methylation_types:
     input:
         atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
     output:
-        CG  = "result/{sample}_CG.msr",
-        CCG = "result/{sample}_CCG.msr",
-        CWG = "result/{sample}_CWG.msr",
-        CHH = "result/{sample}_CHH.msr"
+        CG  = WORKING_DIR + "result/{sample}_CG.msr",
+        CCG = WORKING_DIR + "result/{sample}_CCG.msr",
+        CWG = WORKING_DIR + "result/{sample}_CWG.msr",
+        CHH = WORKING_DIR + "result/{sample}_CHH.msr"
     shell:"""
 zless {input.atcgmap} | awk '{if ($4 == "CG") print}' | awk '{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}' > {output.CG}
 zless {input.atcgmap} | awk '{if ($4 == "CHG" && $5 == "CC") print}' | awk '{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}' > {output.CCG}
@@ -206,9 +206,9 @@ rule forge_genome_data_package:
     input:
         genome = WORKING_DIR + "genome/genome.fasta.gz"
     output:
-        seed = "BSgenome_seed",
-        discription = "BSgenomeGenome/DESCRIPTION",
-        namespace   = "BSgenomeGenome/NAMESPACE"
+        seed        = WORKING_DIR + "BSgenome_seed",
+        discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
+        namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
     message:
         "forging BSgenome"
     params:
@@ -228,18 +228,18 @@ rule forge_genome_data_package:
 
 rule methylSeekR:
     input:
-        CG          = "result/{sample}_CG.msr",
-        CCG         = "result/{sample}_CCG.msr",
-        CWG         = "result/{sample}_CWG.msr",
-        CHH         = "result/{sample}_CHH.msr",
-        seed        = "BSgenome_seed",
-        discription = "BSgenomeGenome/DESCRIPTION",
-        namespace   = "BSgenomeGenome/NAMESPACE"
+        CG          = WORKING_DIR + "result/{sample}_CG.msr",
+        CCG         = WORKING_DIR + "result/{sample}_CCG.msr",
+        CWG         = WORKING_DIR + "result/{sample}_CWG.msr",
+        CHH         = WORKING_DIR + "result/{sample}_CHH.msr",
+        seed        = WORKING_DIR + "BSgenome_seed",
+        discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
+        namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
     output:
-        CG  = "result/{sample}_CG_UTRLTR.msr",
-        CCG = "result/{sample}_CCG_UTRLTR.msr",
-        CWG = "result/{sample}_CWG_UTRLTR.msr",
-        CHH = "result/{sample}_CHH_UTRLTR.msr",
+        CG  = WORKING_DIR + "result/{sample}_CG_UTRLTR.msr",
+        CCG = WORKING_DIR + "result/{sample}_CCG_UTRLTR.msr",
+        CWG = WORKING_DIR + "result/{sample}_CWG_UTRLTR.msr",
+        CHH = WORKING_DIR + "result/{sample}_CHH_UTRLTR.msr",
     message:
         "running R-sript methylSeekR.R"        
     shell:
