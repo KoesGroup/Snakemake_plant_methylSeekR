@@ -150,15 +150,15 @@ rule BSseeker_mapping:
         log   = RESULT_DIR + "result/{sample}.bam.bs_seeker2_log"
     params:
         indexName  = WORKING_DIR + "genome/genome",
-        sampleName = "{sample}"
+        sampleName = sample
     message:
         "mapping reads to genome to bam files."
     threads: 10
     run:
         if sample_is_single_end(params.sampleName):
-            shell("python BSseeker2/bs_seeker2-align.py -i {input[0]} -g {input.genome} -o {output.bams}")
+            shell("python BSseeker2/bs_seeker2-align.py -i {input[0]} -g {input.genome} -o {params.sampleName}")
         else:
-            shell("python BSseeker2/bs_seeker2-align.py -1 {input[0]} -2 {input[1]} -g {input.genome} -o {output.bams}")
+            shell("python BSseeker2/bs_seeker2-align.py -1 {input[0]} -2 {input[1]} -g {input.genome} -o {params.sampleName}")
 
 
 #####################################################
