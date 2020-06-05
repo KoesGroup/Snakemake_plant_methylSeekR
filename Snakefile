@@ -155,8 +155,8 @@ rule index:
 rule BSseeker_mapping:
     input:
         get_trimmed,
-        check      = WORKING_DIR + "genome/genome.fasta" + ".check"
-        genome     = WORKING_DIR + "genome/genome.fasta"
+        check      = WORKING_DIR + "genome/genome.fasta" + ".check",
+        genome     = WORKING_DIR + "genome/genome.fasta",
         indexFiles = [WORKING_DIR + "genome/genome." + str(i) + ".ht2" for i in range(1,9)]
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
@@ -197,9 +197,9 @@ rule split_methylation_types:
     input:
         atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
     output:
-        CG  = "result/{sample}_CG.msr"
-        CCG = "result/{sample}_CCG.msr"
-        CWG = "result/{sample}_CWG.msr"
+        CG  = "result/{sample}_CG.msr",
+        CCG = "result/{sample}_CCG.msr",
+        CWG = "result/{sample}_CWG.msr",
         CHH = "result/{sample}_CHH.msr"
     shell:"""
 zless {input.atcgmap} | awk '{if ($4 == "CG") print}' | awk '{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}' > {output.CG}
@@ -213,3 +213,49 @@ zless {input.atcgmap} | awk '{if ($4 == "CHH") print}' | awk '{ if ($2=="C") pri
 # determin regions of low or no methylation 
 ###########################################
 
+rule forge_genome_data_package:
+    input:
+        genome = WORKING_DIR + "genome/genome.fasta"
+    output:
+        seed = "BSgenome_seed",
+        discription = "BSgenomeGenome/DESCRIPTION",
+        namespace   = "BSgenomeGenome/NAMESPACE"
+    message:
+        "forging BSgenome"
+    params:
+        package_name    = config["forge"]["package_name"],
+        organism        = config["forge"]["organism"],
+        common_name     = config["forge"]["common_name"],
+        genome_dir      = config["forge"]["genome_dir"],
+        BSgenomeObjname = config["forge"]["BSgenomeObjname"]
+    shell:
+        "python scripts/ForgeBSgenome.py "
+        "-g {input.genome} "
+        "-p {params.package_name} "
+        "-o {params.organism} "
+        "-c {params.common_name} "
+        "-d {params.genome_dir} "
+        "-b {params.BSgenomeObjname}"
+
+    rule methylSeekR:
+        input:
+            CG          = "result/{sample}_CG.msr",
+            CCG         = "result/{sample}_CCG.msr",
+            CWG         = "result/{sample}_CWG.msr",
+            CHH         = "result/{sample}_CHH.msr",
+            seed        = "BSgenome_seed",
+            discription = "BSgenomeGenome/DESCRIPTION",
+            namespace   = "BSgenomeGenome/NAMESPACE"
+        output:
+            CG  = "result/{sample}_CG_UTRLTR.msr",
+            CCG = "result/{sample}_CCG_UTRLTR.msr",
+            CWG = "result/{sample}_CWG_UTRLTR.msr",
+            CHH = "result/{sample}_CHH_UTRLTR.msr",
+        message:
+            "running R-sript methylSeekR.R"        
+        shell:
+            "Rscript scripts/methylSeekR.R "
+            "-g {input.CG} "
+            "-c {input.CCG} "
+            "-w {input.CWG} "
+            "-o {input.CHH}"
