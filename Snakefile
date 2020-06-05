@@ -70,7 +70,7 @@ rule all:
         expand(WORKING_DIR + "result/{sample}_CG.msr", sample = SAMPLES),
         WORKING_DIR + "BSgenome_seed",
         WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
-        WORKING_DIR + "BSgenomeGenome/NAMESPACE"
+        WORKING_DIR + "BSgenomeGenome/NAMESPACE",
         expand(WORKING_DIR + "result/{sample}_CG_UTRLTR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CCG_UTRLTR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CWG_UTRLTR.msr", sample = SAMPLES),
