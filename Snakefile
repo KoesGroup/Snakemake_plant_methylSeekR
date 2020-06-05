@@ -143,8 +143,7 @@ rule BSseeker_mapping:
     input:
         get_trimmed,
         check      = WORKING_DIR + "genome/genome.check",
-        genome     = WORKING_DIR + "genome/genome.fasta.gz",
-        indexFiles = [WORKING_DIR + "genome/genome." + str(i) + ".ht2" for i in range(1,9)]
+        genome     = WORKING_DIR + "genome/genome.fasta.gz"
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         log   = RESULT_DIR + "result/{sample}.bam.bs_seeker2_log"
