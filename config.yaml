@@ -1,7 +1,7 @@
 units: samples.tsv        # Complete the tab sep value file with the path to the files and their conditions
 
 ### Definition of the path Snakemake has to create
-working_dir: "./"
+working_dir: ""
 result_dir: "results/"
 
 ### Genome and annotations
