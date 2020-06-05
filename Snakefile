@@ -174,7 +174,7 @@ rule methylation_calling:
     message:
         "calling methylation levels"
     params:
-        prefix = "{sample}",
+        #prefix = "{sample}",
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/geneome.fa_bowtie/"
     threads: 10
     shell:
