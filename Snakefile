@@ -68,6 +68,9 @@ rule all:
         expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}.ATCGmap.gz", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CG.msr", sample = SAMPLES),
+        WORKING_DIR + "BSgenome_seed",
+        WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
+        WORKING_DIR + "BSgenomeGenome/NAMESPACE"
 
     message:
         "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
