@@ -84,23 +84,13 @@ rule all:
 
 rule get_genome_fasta:
     output:
-        WORKING_DIR + "genome/genome.fasta"
+        WORKING_DIR + "genome/genome.fasta.gz"
     message:
         "downloading the required genomic fasta file"
     conda:
         "envs/wget.yaml"
     shell:
         "wget -O {output} {genome_url}"
-
-rule get_transcriptome_gtf:
-    output:
-        WORKING_DIR + "genome/ref_transcriptome.gff"
-    message:
-        "downloading required transcriptome gtf file"
-    conda:
-        "envs/wget.yaml"
-    shell:
-        "wget -O {output} {transcriptome_gtf_url}"
 
 
 ##################################
@@ -140,9 +130,9 @@ rule fastp:
 
 rule index:
     input:
-        WORKING_DIR + "genome/genome.fasta"
+        WORKING_DIR + "genome/genome.fasta.gz"
     output:
-        WORKING_DIR + "genome/genome.fasta" + ".check"
+        WORKING_DIR + "genome/genome.check"
         ##[WORKING_DIR + "genome/genome." + str(i) + ".ht2" for i in range(1,9)]
     message:
         "indexing genome"
@@ -155,8 +145,8 @@ rule index:
 rule BSseeker_mapping:
     input:
         get_trimmed,
-        check      = WORKING_DIR + "genome/genome.fasta" + ".check",
-        genome     = WORKING_DIR + "genome/genome.fasta",
+        check      = WORKING_DIR + "genome/genome.check",
+        genome     = WORKING_DIR + "genome/genome.fasta.gz",
         indexFiles = [WORKING_DIR + "genome/genome." + str(i) + ".ht2" for i in range(1,9)]
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
@@ -181,7 +171,7 @@ rule BSseeker_mapping:
 rule methylation_calling:
     input:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
-        index = WORKING_DIR + "genome/genome.fasta"
+        index = WORKING_DIR + "genome/genome.fasta.gz"
     output:
         atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
     message:
@@ -215,7 +205,7 @@ zless {input.atcgmap} | awk '{if ($4 == "CHH") print}' | awk '{ if ($2=="C") pri
 
 rule forge_genome_data_package:
     input:
-        genome = WORKING_DIR + "genome/genome.fasta"
+        genome = WORKING_DIR + "genome/genome.fasta.gz"
     output:
         seed = "BSgenome_seed",
         discription = "BSgenomeGenome/DESCRIPTION",
