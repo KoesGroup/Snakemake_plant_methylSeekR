@@ -87,8 +87,8 @@ rule get_genome_fasta:
         WORKING_DIR + "genome/genome.fasta.gz"
     message:
         "downloading the required genomic fasta file"
-    conda:
-        "envs/wget.yaml"
+#    conda:
+#        "envs/wget.yaml"
     shell:
         "wget -O {output} {genome_url}"
 
@@ -227,25 +227,25 @@ rule forge_genome_data_package:
         "-d {params.genome_dir} "
         "-b {params.BSgenomeObjname}"
 
-    rule methylSeekR:
-        input:
-            CG          = "result/{sample}_CG.msr",
-            CCG         = "result/{sample}_CCG.msr",
-            CWG         = "result/{sample}_CWG.msr",
-            CHH         = "result/{sample}_CHH.msr",
-            seed        = "BSgenome_seed",
-            discription = "BSgenomeGenome/DESCRIPTION",
-            namespace   = "BSgenomeGenome/NAMESPACE"
-        output:
-            CG  = "result/{sample}_CG_UTRLTR.msr",
-            CCG = "result/{sample}_CCG_UTRLTR.msr",
-            CWG = "result/{sample}_CWG_UTRLTR.msr",
-            CHH = "result/{sample}_CHH_UTRLTR.msr",
-        message:
-            "running R-sript methylSeekR.R"        
-        shell:
-            "Rscript scripts/methylSeekR.R "
-            "-g {input.CG} "
-            "-c {input.CCG} "
-            "-w {input.CWG} "
-            "-o {input.CHH}"
+rule methylSeekR:
+    input:
+        CG          = "result/{sample}_CG.msr",
+        CCG         = "result/{sample}_CCG.msr",
+        CWG         = "result/{sample}_CWG.msr",
+        CHH         = "result/{sample}_CHH.msr",
+        seed        = "BSgenome_seed",
+        discription = "BSgenomeGenome/DESCRIPTION",
+        namespace   = "BSgenomeGenome/NAMESPACE"
+    output:
+        CG  = "result/{sample}_CG_UTRLTR.msr",
+        CCG = "result/{sample}_CCG_UTRLTR.msr",
+        CWG = "result/{sample}_CWG_UTRLTR.msr",
+        CHH = "result/{sample}_CHH_UTRLTR.msr",
+    message:
+        "running R-sript methylSeekR.R"        
+    shell:
+        "Rscript scripts/methylSeekR.R "
+        "-g {input.CG} "
+        "-c {input.CCG} "
+        "-w {input.CWG} "
+        "-o {input.CHH}"
