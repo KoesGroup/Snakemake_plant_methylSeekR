@@ -65,19 +65,19 @@ def get_trimmed(wildcards):
 #################
 rule all:
     input:
-        expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
-        expand(WORKING_DIR + "result/{sample}.ATCGmap.gz", sample = SAMPLES),
-        expand(WORKING_DIR + "result/{sample}_CG.msr", sample = SAMPLES),
-        WORKING_DIR + "BSgenome_seed",
-        WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
-        WORKING_DIR + "BSgenomeGenome/NAMESPACE",
+        #expand(WORKING_DIR + "mapped/{sample}.bam", sample = SAMPLES),
+        #expand(WORKING_DIR + "result/{sample}.ATCGmap.gz", sample = SAMPLES),
+        #expand(WORKING_DIR + "result/{sample}_CG.msr", sample = SAMPLES),
+        #WORKING_DIR + "BSgenome_seed",
+        #WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
+        #WORKING_DIR + "BSgenomeGenome/NAMESPACE",
         expand(WORKING_DIR + "result/{sample}_CG_UTRLTR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CCG_UTRLTR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CWG_UTRLTR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "result/{sample}_CHH_UTRLTR.msr", sample = SAMPLES),
 
     message:
-        "Job done!\n\n#=========================#\n|       tijs bliek        |\n| University of Amsterdam |\n#=========================#\n"
+        "Job done!\n\n\t#=========================#\n\t|       tijs bliek        |\n\t| University of Amsterdam |\n\t#=========================#\n"
 
 #######
 # Rules
