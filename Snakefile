@@ -148,9 +148,9 @@ rule BSseeker_mapping:
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         log   = RESULT_DIR + "result/{sample}.bam.bs_seeker2_log"
-    #params:
-     #   indexName  = WORKING_DIR + "genome/genome",
-        #sampleName = sample
+    params:
+        indexName  = WORKING_DIR + "genome/genome",
+        sampleName = sample
     message:
         "mapping reads to genome to bam files."
     threads: 10
@@ -174,11 +174,11 @@ rule methylation_calling:
     message:
         "calling methylation levels"
     params:
-        #prefix = "{sample}",
+        prefix = "{sample}",
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/geneome.fa_bowtie/"
     threads: 10
     shell:
-        "python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {output.atcgmap} -d {params.index}"
+        "python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
        
 rule split_methylation_types:
     input:
