@@ -12,3 +12,10 @@ refs:
 ### Software parameters
 fastp:
   qualified_quality_phred: 15 # the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified. (int [=15])
+
+forge:
+  package_name: "BSgenomeGenome"
+  organism: "Unknown"
+  common_name: "unknown species"
+  genome_dir: "genome"
+  BSgenomeObjname: "chromosomes"
