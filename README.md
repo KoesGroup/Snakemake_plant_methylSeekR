@@ -61,3 +61,7 @@ Please pay attention to `--use-conda`, it is required for the installation and l
 # Parameters
 
 Most of the parameters for the analysis are inspired by the original MethylSeekR 
+
+
+# Directed Acyclic Graph of jobs
+![dag](./dag.png)
