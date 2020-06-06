@@ -182,7 +182,7 @@ rule methylation_calling:
         "calling methylation levels"
     params:
         prefix = "{sample}",
-        index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/geneome.fa_bowtie/"
+        index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/genome.fasta.gz_bowtie/"
     threads: 10
     shell:
         "python BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
