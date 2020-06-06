@@ -145,7 +145,8 @@ rule BSseeker_build_index:
         WORKING_DIR + "genome/genome"
     threads: 10
     shell:
-        "bs_seeker2-build.py -f {input} && touch {output}"
+        "python2 scripts/run_bs_align.py"
+        #"bs_seeker2-build.py -f {input} && touch {output}"
 
 rule BSseeker_mapping:
     input:
