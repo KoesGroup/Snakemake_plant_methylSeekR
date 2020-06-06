@@ -127,7 +127,6 @@ rule fastp:
         else:
             shell("fastp --thread {threads}  --html {output.html} \
             --qualified_quality_phred {params.qualified_quality_phred} \
-            --detect_adapter_for_pe \
             --in1 {input[0]} --in2 {input[1]} --out1 {output.fq1} --out2 {output.fq2}; \
             2> {log}")
 ###########################
