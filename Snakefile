@@ -154,7 +154,7 @@ rule BSseeker_mapping:
         genome     = WORKING_DIR + "genome/genome.fasta.gz"
     output:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
-        log   = WORKING_DIR + "maooed/{sample}.bam.bs_seeker2_log"
+        log   = WORKING_DIR + "mapped/{sample}.bam.bs_seeker2_log"
     params:
         indexName  = WORKING_DIR + "genome/genome",
         sampleName = "{sample}"
