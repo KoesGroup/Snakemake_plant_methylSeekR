@@ -163,9 +163,9 @@ rule BSseeker_mapping:
     threads: 10
     run:
         if sample_is_single_end(params.sampleName):
-            shell("python2 BSseeker2/bs_seeker2-align.py -i {input[0]} -g {input.genome} -o {output.bams}")
+            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -i {input[0]} -g {input.genome} -o {output.bams}")
         else:
-            shell("python2 BSseeker2/bs_seeker2-align.py -1 {input[0]} -2 {input[1]} -g {input.genome} -o {output.bams}")
+            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -1 {input[0]} -2 {input[1]} -g {input.genome} -o {output.bams}")
 
 
 #####################################################
