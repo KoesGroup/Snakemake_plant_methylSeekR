@@ -197,7 +197,7 @@ rule split_methylation_types:
         CWG = WORKING_DIR + "results/{sample}_CWG.msr",
         CHH = WORKING_DIR + "results/{sample}_CHH.msr"
     shell:"""
-zless {input.atcgmap} | awk '{{if ($4 == "CG") print\}}' | awk '{{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CG}
+zless {input.atcgmap} | awk '{{if ($4 == "CG") print}}' | awk '{{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHG" && $5 == "CC") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CCG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHG" && $5 ~ /C[AT]/) print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CWG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHH") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CHH}
