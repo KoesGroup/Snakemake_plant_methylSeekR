@@ -47,7 +47,7 @@ print(genomeFasta)
 os.chdir("genome/")
 
 print(os.getcwd())
-
+print(glob.glob("*.gz"))
 if options.genome in glob.glob("*.gz"):
     os.system("gunzip " + genomeFasta)
 
