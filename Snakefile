@@ -71,10 +71,10 @@ rule all:
         #WORKING_DIR + "BSgenome_seed",
         #WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         #WORKING_DIR + "BSgenomeGenome/NAMESPACE",
-        expand(WORKING_DIR + "results/{sample}_CG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CCG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CWG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CHH_UTRLTR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CG_UUMRLMR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CCG_UMRLMR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CWG_UMRLMR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CHH_UMRLMR.msr", sample = SAMPLES),
 
     message:
         "Job done!\n\n\t#=========================#\n\t|       tijs bliek        |\n\t| University of Amsterdam |\n\t#=========================#\n"
@@ -242,15 +242,22 @@ rule methylSeekR:
         discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
     output:
-        CG  = WORKING_DIR + "results/{sample}_CG_UTRLTR.msr",
-        CCG = WORKING_DIR + "results/{sample}_CCG_UTRLTR.msr",
-        CWG = WORKING_DIR + "results/{sample}_CWG_UTRLTR.msr",
-        CHH = WORKING_DIR + "results/{sample}_CHH_UTRLTR.msr",
+        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.msr",
+        CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.msr",
+        CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.msr",
+        CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.msr",
+    params:
+        LMR = config["UMRLMR"]["LMR"],
     message:
         "running R-sript methylSeekR.R"        
     shell:
         "Rscript scripts/methylSeekR.R "
-        "-g {input.CG} "
-        "-c {input.CCG} "
-        "-w {input.CWG} "
-        "-o {input.CHH}"
+        "-l {params.LMR} "
+        "--CGin {input.CG} "
+        "--CCGin {input.CCG} "
+        "--CWGin {input.CWG} "
+        "--CHHin {input.CHH} "
+        "--CGout {output.CG} "
+        "--CCGout {output.CCG} "
+        "--CWGout {output.CWG} "
+        "--CHHout {output.CHH}"
