@@ -71,7 +71,7 @@ rule all:
         #WORKING_DIR + "BSgenome_seed",
         #WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         #WORKING_DIR + "BSgenomeGenome/NAMESPACE",
-        expand(WORKING_DIR + "results/{sample}_CG_UUMRLMR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CG_UMRLMR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "results/{sample}_CCG_UMRLMR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "results/{sample}_CWG_UMRLMR.msr", sample = SAMPLES),
         expand(WORKING_DIR + "results/{sample}_CHH_UMRLMR.msr", sample = SAMPLES),
