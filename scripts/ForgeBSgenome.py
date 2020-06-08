@@ -49,6 +49,7 @@ os.chdir("genome/")
 print(os.getcwd())
 print(glob.glob("*.gz"))
 if genomeFasta in glob.glob("*.gz"):
+    print("unzipping......")
     os.system("gunzip " + genomeFasta)
 
 
