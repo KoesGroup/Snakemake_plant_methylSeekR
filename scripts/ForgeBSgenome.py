@@ -46,7 +46,7 @@ if options.genome in glob.glob("*.gz"):
 
 
 ## create seperate files for each of the chromosomes.
-genomeFasta = options.genome.replace(".gz", "")
+genomeFasta = options.genome.replace(".gz", "").replace("genome/", "")
 genome = open(genomeFasta)
 go = False
 chroms = []
