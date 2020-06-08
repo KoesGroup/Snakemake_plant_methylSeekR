@@ -100,6 +100,9 @@ seedFile.write(seedText)
 seedFile.close()
 
 ## create and install package.
+command = "rmdir BSgenomeGenome"      ## remove dir as produced by Snakemake, genome forge doesn't overwrite
+print(command)
+os.system(command)
 command = "Rscript scripts/Forge.R"
 print(command)
 os.system(command)
