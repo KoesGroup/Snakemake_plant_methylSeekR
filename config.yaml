@@ -10,6 +10,10 @@ refs:
     "ftp://ftp.solgenomics.net/genomes/Petunia_axillaris/assembly/Petunia_axillaris_v1.6.2_genome.fasta"
 
 ### Software parameters
+UMRLMR:
+  LMR: "50"   # maximum percentage of methylation to be "low methylated"
+  UMR: "10"   # maximum percentage of methylation to be "unmethylated"
+
 fastp:
   qualified_quality_phred: "15" # the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified. (int [=15])
 
