@@ -40,13 +40,16 @@ parser.add_option('-b', '--BSgenomeObjname',
 (options, args) = parser.parse_args()
 
 ## check if genome in zipped, if so, unzip.
+
+genomeFasta = options.genome.replace("genome/","")
 os.chdir("genome")
+
 if options.genome in glob.glob("*.gz"):
-    os.system("gunzip " + options.genome)
+    os.system("gunzip " + genomeFasta)
 
 
 ## create seperate files for each of the chromosomes.
-genomeFasta = options.genome.replace(".gz", "").replace("genome/", "")
+genomeFasta = options.genome.replace(".gz", "")
 genome = open(genomeFasta)
 go = False
 chroms = []
