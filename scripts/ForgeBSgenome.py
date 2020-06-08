@@ -43,7 +43,7 @@ parser.add_option('-b', '--BSgenomeObjname',
 
 genomeFasta = options.genome.replace("genome/","")
 print(genomeFasta)
-print(os.getwd())
+print(os.getcwd())
 os.chdir("genome")
 
 if options.genome in glob.glob("*.gz"):
