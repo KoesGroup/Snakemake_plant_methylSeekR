@@ -177,11 +177,11 @@ rule methylation_calling:
         bams  = WORKING_DIR + "mapped/{sample}.bam",
         index = WORKING_DIR + "genome/genome.check",
     output:
-        atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
+        atcgmap = WORKING_DIR + "results/{sample}.ATCGmap.gz"
     message:
         "calling methylation levels"
     params:
-        prefix = "{sample}",
+        prefix = "results/{sample}",
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/genome.fasta.gz_bowtie/"
     threads: 10
     shell:
@@ -190,12 +190,12 @@ rule methylation_calling:
 
 rule split_methylation_types:
     input:
-        atcgmap = WORKING_DIR + "result/{sample}.ATCGmap.gz"
+        atcgmap = WORKING_DIR + "results/{sample}.ATCGmap.gz"
     output:
-        CG  = WORKING_DIR + "result/{sample}_CG.msr",
-        CCG = WORKING_DIR + "result/{sample}_CCG.msr",
-        CWG = WORKING_DIR + "result/{sample}_CWG.msr",
-        CHH = WORKING_DIR + "result/{sample}_CHH.msr"
+        CG  = WORKING_DIR + "results/{sample}_CG.msr",
+        CCG = WORKING_DIR + "results/{sample}_CCG.msr",
+        CWG = WORKING_DIR + "results/{sample}_CWG.msr",
+        CHH = WORKING_DIR + "results/{sample}_CHH.msr"
     shell:"""
 zless {input.atcgmap} | awk '\{{if ($4 == "CG") print\}}' | awk '{{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHG" && $5 == "CC") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CCG}
@@ -234,18 +234,18 @@ rule forge_genome_data_package:
 
 rule methylSeekR:
     input:
-        CG          = WORKING_DIR + "result/{sample}_CG.msr",
-        CCG         = WORKING_DIR + "result/{sample}_CCG.msr",
-        CWG         = WORKING_DIR + "result/{sample}_CWG.msr",
-        CHH         = WORKING_DIR + "result/{sample}_CHH.msr",
+        CG          = WORKING_DIR + "results/{sample}_CG.msr",
+        CCG         = WORKING_DIR + "results/{sample}_CCG.msr",
+        CWG         = WORKING_DIR + "results/{sample}_CWG.msr",
+        CHH         = WORKING_DIR + "results/{sample}_CHH.msr",
         seed        = WORKING_DIR + "BSgenome_seed",
         discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
     output:
-        CG  = WORKING_DIR + "result/{sample}_CG_UTRLTR.msr",
-        CCG = WORKING_DIR + "result/{sample}_CCG_UTRLTR.msr",
-        CWG = WORKING_DIR + "result/{sample}_CWG_UTRLTR.msr",
-        CHH = WORKING_DIR + "result/{sample}_CHH_UTRLTR.msr",
+        CG  = WORKING_DIR + "results/{sample}_CG_UTRLTR.msr",
+        CCG = WORKING_DIR + "results/{sample}_CCG_UTRLTR.msr",
+        CWG = WORKING_DIR + "results/{sample}_CWG_UTRLTR.msr",
+        CHH = WORKING_DIR + "results/{sample}_CHH_UTRLTR.msr",
     message:
         "running R-sript methylSeekR.R"        
     shell:
