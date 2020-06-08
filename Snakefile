@@ -71,10 +71,10 @@ rule all:
         #WORKING_DIR + "BSgenome_seed",
         #WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         #WORKING_DIR + "BSgenomeGenome/NAMESPACE",
-        expand(WORKING_DIR + "result/{sample}_CG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "result/{sample}_CCG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "result/{sample}_CWG_UTRLTR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "result/{sample}_CHH_UTRLTR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CG_UTRLTR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CCG_UTRLTR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CWG_UTRLTR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CHH_UTRLTR.msr", sample = SAMPLES),
 
     message:
         "Job done!\n\n\t#=========================#\n\t|       tijs bliek        |\n\t| University of Amsterdam |\n\t#=========================#\n"
