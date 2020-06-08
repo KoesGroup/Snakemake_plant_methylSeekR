@@ -100,7 +100,7 @@ seedFile.write(seedText)
 seedFile.close()
 
 ## create and install package.
-command = "rscript Forge.R"
+command = "Rscript scripts/Forge.R"
 print(command)
 #os.system(command)
 command = "R CMD build " + options.package_name + " --no-manual"
