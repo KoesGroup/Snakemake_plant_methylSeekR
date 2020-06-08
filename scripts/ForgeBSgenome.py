@@ -112,6 +112,9 @@ os.system(command)
 command = "R CMD check " + options.package_name + " --no-manual"
 print(command)
 os.system(command)
-command = "R CMD INSTALL " + options.package_name + " --no-manual"
+command = "mkdir localR"
+print(command)
+os.system(command)
+command = "R CMD INSTALL -l localR" + options.package_name
 print(command)
 os.system(command)
