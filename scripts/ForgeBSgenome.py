@@ -42,6 +42,8 @@ parser.add_option('-b', '--BSgenomeObjname',
 ## check if genome in zipped, if so, unzip.
 
 genomeFasta = options.genome.replace("genome/","")
+print(genomeFasta)
+print(os.getwd())
 os.chdir("genome")
 
 if options.genome in glob.glob("*.gz"):
