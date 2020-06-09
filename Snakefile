@@ -71,10 +71,10 @@ rule all:
         #WORKING_DIR + "BSgenome_seed",
         #WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         #WORKING_DIR + "BSgenomeGenome/NAMESPACE",
-        expand(WORKING_DIR + "results/{sample}_CG_UMRLMR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CCG_UMRLMR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CWG_UMRLMR.msr", sample = SAMPLES),
-        expand(WORKING_DIR + "results/{sample}_CHH_UMRLMR.msr", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CG_UMRLMR_plant.bed", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CCG_UMRLMR_plant.bed", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CWG_UMRLMR_plant.bed", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_CHH_UMRLMR_plant.bed", sample = SAMPLES),
 
     message:
         "Job done!\n\n\t#=========================#\n\t|       tijs bliek        |\n\t| University of Amsterdam |\n\t#=========================#\n"
@@ -242,10 +242,10 @@ rule methylSeekR:
         discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
     output:
-        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.msr",
-        CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.msr",
-        CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.msr",
-        CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.msr",
+        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.bed",
+        CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
+        CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.bed",
+        CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.bed",
     params:
         LMR = config["UMRLMR"]["LMR"],
     message:
@@ -261,3 +261,35 @@ rule methylSeekR:
         "--CCGout {output.CCG} "
         "--CWGout {output.CWG} "
         "--CHHout {output.CHH}"
+
+###################################
+# Redefine regions to plants sample
+###################################
+
+rule methylSeekR:
+    input:
+    output:
+        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.bed",
+        CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
+        CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.bed",
+        CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.bed",
+    output:
+        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR_plant.bed",
+        CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR_plant.bed",
+        CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR_plant.bed",
+        CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR_plant.bed",
+    params:
+        UMR = config["UMRLMR"]["UMR"],
+    message:
+        "running reDefineRegions.py"        
+    shell:
+        "python scripts/reDefineRegions.py "
+        "-m {params.UMR} "
+        "--CG {input.CG} "
+        "--CCG {input.CCG} "
+        "--CWG {input.CWG} "
+        "--CHH {input.CHH} "
+        "--CGp {output.CG} "
+        "--CCGp {output.CCG} "
+        "--CWGp {output.CWG} "
+        "--CHHp {output.CHH}"
