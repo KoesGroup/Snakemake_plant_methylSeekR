@@ -19,7 +19,7 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 
 - **Snakefile**, containing the targeted output and the rules to generate them from the input files.
 
-- **Fastq/**, folder containing subsetted paired-end fastq files used to test locally the pipeline.
+- **data/**, folder containing subsetted paired-end fastq files used to test locally the pipeline (tomato leaf bisulfite genomic sequence reads ([SRR503393](https://www.ncbi.nlm.nih.gov/sra/?term=SRR503393)).
 
 - **genome/**, folder containing a small fragment of chromosome 12 of the tomato genome, to be used for the local test.
 
