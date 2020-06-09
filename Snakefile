@@ -268,7 +268,6 @@ rule methylSeekR:
 
 rule reDefine_fine:
     input:
-    output:
         CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.bed",
         CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
         CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.bed",
@@ -283,7 +282,7 @@ rule reDefine_fine:
     message:
         "running reDefineRegions.py"        
     shell:
-        "python scripts/reDefineRegions.py "
+        "python scripts/reDefineRegion.py "
         "-m {params.UMR} "
         "--CG {input.CG} "
         "--CCG {input.CCG} "
