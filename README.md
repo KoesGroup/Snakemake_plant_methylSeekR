@@ -8,7 +8,7 @@ Snakemake pipeline for analysis of bisulfite-seq data
 # Aim
 
 Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data
-Mapping and methylation calling is done with the tool [BSseeker2](https://guoweilong.github.io/BS_Seeker2/index.html)
+Mapping and methylation calling is done with the tool [BSseeker2](https://guoweilong.github.io/BS_Seeker2/index.html).
 Identification of regions of low or no methylation is based on [MethylSeekR](https://bioconductor.org/packages/release/bioc/html/MethylSeekR.html) With some added features to make it more suitable for plant samples.
 
 
