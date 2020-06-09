@@ -43,7 +43,7 @@ The `~/configs.yaml` file specifies the sample list (sample.tsv), the genomic re
 
 ## Snakemake execution
 The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defining their order.
-It has many rich features. Read more [here](https://snakemake.readthedocs.io/en/stable/).
+It has many rich features. [More info on snakemake](https://snakemake.readthedocs.io/en/stable/).
 
 ## Samples
 Samples are listed in the `samples.tsv` file and will be used by the Snakefile automatically. Change the name accordingly.
