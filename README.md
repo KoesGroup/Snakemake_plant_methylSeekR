@@ -23,9 +23,9 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 
 - **genome/**, folder containing a small fragment of chromosome 12 of the tomato genome, to be used for the local test.
 
-- **envs/**, folder containing the environments needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (here : envs/global_env.yaml )
+- **envs/**, folder containing the environments needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (envs/global_env.yaml )
 
-- **samples.tsv**, is a tab separated value file containing information about the used samplesnames (name of used species,tissue,...) and the path to the fastq files relative to the **Snakefile**. **Change this file according to your samples.**
+- **samples.tsv**, is a tab separated value file containing information about the used samplesnames (name of used species, tissue, ...) and the path to the fastq files relative to the **Snakefile**. **Change this file according to your samples.**
 
 
 # Usage
