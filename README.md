@@ -7,7 +7,9 @@ Snakemake pipeline for analysis of bisulfite-seq data
 
 # Aim
 
-Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data, with some alterations to make to especially suitable for plant BS samples.
+Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data
+Mapping and methylation calling is done with the tool [BSseeker2](https://guoweilong.github.io/BS_Seeker2/index.html)
+Identification of regions of low or no methylation is based on [MethylSeekR](https://bioconductor.org/packages/release/bioc/html/MethylSeekR.html) With some added features to make it more suitable for plant samples.
 
 
 
@@ -23,7 +25,7 @@ Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfi
 
 - **envs/**, folder containing the environments needed for the Snakefile to run. To use Snakemake, it is required to create and activate an environment containing snakemake (here : envs/global_env.yaml )
 
-- **units.tsv**, is a tab separated value files containing information about the experiment name, the condition of the experiment (control or treatment) and the path to the fastq files relative to the **Snakefile**. **Change this file according to your samples.**
+- **samples.tsv**, is a tab separated value file containing information about the used samplesnames (name of used species,tissue,...) and the path to the fastq files relative to the **Snakefile**. **Change this file according to your samples.**
 
 
 # Usage
@@ -37,14 +39,14 @@ First, you need to create an environment for the use of Snakemake with [Conda pa
 The Snakefile will then take care of installing and loading the packages and softwares required by each step of the pipeline.
 
 ## Configuration file
-The `~/configs.yaml` file specifies the sample list, the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
+The `~/configs.yaml` file specifies the sample list (sample.tsv), the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
 
 ## Snakemake execution
 The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defining their order.
 It has many rich features. Read more [here](https://snakemake.readthedocs.io/en/stable/).
 
 ## Samples
-Samples are listed in the `units.tsv` file and will be used by the Snakefile automatically. Change the name, the conditions accordingly.
+Samples are listed in the `samples.tsv` file and will be used by the Snakefile automatically. Change the name accordingly.
 
 ## Dry run
 Use the command `snakemake -np` to perform a dry run that prints out the rules and commands.
@@ -60,7 +62,7 @@ Please pay attention to `--use-conda`, it is required for the installation and l
 
 # Parameters
 
-Most of the parameters for the analysis are inspired by the original MethylSeekR 
+The setting as given, is optimized to plant samples.
 
 
 # Directed Acyclic Graph of jobs
