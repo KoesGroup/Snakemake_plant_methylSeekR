@@ -53,7 +53,6 @@ parser.add_option('-m', '--UMRmax',
 
 bed = open(options.CG)
 uit = open(options.CGp, "w")
-
 for l in bed:
     if l.startswith("chr\tstart"):
         uit.write(l)
@@ -65,8 +64,53 @@ for l in bed:
             l[3] = "UMR"
         l = "\t".join(l)
         uit.write(l)
+uit.close()
+bed.close()
 
+bed = open(options.CCG)
+uit = open(options.CCGp, "w")
+for l in bed:
+    if l.startswith("chr\tstart"):
+        uit.write(l)
+    else:
+        l = l.split("\t")
+        if float(l[-1].rstrip()) > options.UMRmax:
+            l[3] = "LMR"
+        else:
+            l[3] = "UMR"
+        l = "\t".join(l)
+        uit.write(l)
+uit.close()
+bed.close()
 
+bed = open(options.CWG)
+uit = open(options.CWGp, "w")
+for l in bed:
+    if l.startswith("chr\tstart"):
+        uit.write(l)
+    else:
+        l = l.split("\t")
+        if float(l[-1].rstrip()) > options.UMRmax:
+            l[3] = "LMR"
+        else:
+            l[3] = "UMR"
+        l = "\t".join(l)
+        uit.write(l)
+uit.close()
+bed.close()
 
+bed = open(options.CHH)
+uit = open(options.CHHp, "w")
+for l in bed:
+    if l.startswith("chr\tstart"):
+        uit.write(l)
+    else:
+        l = l.split("\t")
+        if float(l[-1].rstrip()) > options.UMRmax:
+            l[3] = "LMR"
+        else:
+            l[3] = "UMR"
+        l = "\t".join(l)
+        uit.write(l)
 uit.close()
 bed.close()
