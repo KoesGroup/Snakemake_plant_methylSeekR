@@ -9,7 +9,7 @@ Snakemake pipeline for analysis of bisulfite-seq data
 
 Snakemake pipeline made for reproducible analysis of paired-end Illumina bisulfite-seq data
 Mapping and methylation calling is done with the tool [BSseeker2](https://guoweilong.github.io/BS_Seeker2/index.html).
-Identification of regions of low or no methylation is based on [MethylSeekR](https://bioconductor.org/packages/release/bioc/html/MethylSeekR.html) With some added features to make it more suitable for plant samples.
+Identification of regions of low or no methylation is based on [MethylSeekR](https://bioconductor.org/packages/release/bioc/html/MethylSeekR.html). The pipeline contains a few added features to make it more suitable for the analysis of plant samples.
 
 
 
@@ -19,7 +19,7 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 
 - **Snakefile**, containing the targeted output and the rules to generate them from the input files.
 
-- **data/**, folder containing subsetted paired-end fastq files used to test locally the pipeline (tomato leaf bisulfite genomic sequence reads ([SRR503393](https://www.ncbi.nlm.nih.gov/sra/?term=SRR503393)).
+- **data/**, folder containing a subset of a couple of paired-end fastq files used to test the pipeline locally(tomato leaf bisulfite genomic sequence reads ([SRR503393](https://www.ncbi.nlm.nih.gov/sra/?term=SRR503393)).
 
 - **genome/**, folder containing a small fragment of chromosome 12 of the tomato genome, to be used for the local test.
 
@@ -33,16 +33,16 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 ## Conda environment
 
 First, you need to create an environment for the use of Snakemake with [Conda package manager](https://conda.io/docs/using/envs.html).
-1. Create a virtual environment named "atacseq" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file ~/envs/global_env.yaml`
+1. Create a virtual environment named "BSanalysis" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file ~/envs/global_env.yaml`
 2. Then, activate this virtual environment with `conda activate BSanalysis`
 
-The Snakefile will then take care of installing and loading the packages and softwares required by each step of the pipeline.
+The Snakefile will then take care of installing and loading the packages and software required by each step of the pipeline.
 
 ## Configuration file
 The `~/configs.yaml` file specifies the sample list (sample.tsv), the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
 
 ## Snakemake execution
-The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defining their order.
+The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defines their order.
 It has many rich features. [More info on snakemake](https://snakemake.readthedocs.io/en/stable/).
 
 ## Samples
@@ -62,7 +62,7 @@ Please pay attention to `--use-conda`, it is required for the installation and l
 
 # Parameters
 
-The setting as given, is optimized to plant samples.
+The settings as given, is optimized to plant samples.
 
 
 # Directed Acyclic Graph of jobs
