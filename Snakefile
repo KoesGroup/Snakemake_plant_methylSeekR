@@ -266,7 +266,7 @@ rule methylSeekR:
 # Redefine regions to plants sample
 ###################################
 
-rule reDefine_fine:
+rule reDefine_regions:
     input:
         CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR.bed",
         CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
