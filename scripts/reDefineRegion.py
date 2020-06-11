@@ -22,6 +22,11 @@ parser.add_option('-d', '--CHH',
                     default="None",
                     metavar="",
                     help = "Name of MethylseekR output file for CHH methylation regions")
+parser.add_option('-e', '--CHG', 
+                    type=str,
+                    default="None",
+                    metavar="",
+                    help = "Name of MethylseekR output file for CHG methylation regions")
 parser.add_option('-w', '--CGp', 
                     type=str,
                     default="None",
@@ -32,6 +37,11 @@ parser.add_option('-x', '--CCGp',
                     default="None",
                     metavar="",
                     help = "Name of output file containing regions adjusted to plants for CCG methylation regions")
+parser.add_option('-u', '--CHGp', 
+                    type=str,
+                    default="None",
+                    metavar="",
+                    help = "Name of output file containing regions adjusted to plants for CHG methylation regions")
 parser.add_option('-y', '--CWGp', 
                     type=str,
                     default="None",
@@ -49,7 +59,6 @@ parser.add_option('-m', '--UMRmax',
                     help = "maximum percentage of methylation accepted to be defined unmethylated")    
 
 (options, args) = parser.parse_args()
-
 
 bed = open(options.CG)
 uit = open(options.CGp, "w")
@@ -101,6 +110,22 @@ bed.close()
 
 bed = open(options.CHH)
 uit = open(options.CHHp, "w")
+for l in bed:
+    if l.startswith("chr\tstart"):
+        uit.write(l)
+    else:
+        l = l.split("\t")
+        if float(l[-1].rstrip()) > options.UMRmax:
+            l[3] = "LMR"
+        else:
+            l[3] = "UMR"
+        l = "\t".join(l)
+        uit.write(l)
+uit.close()
+bed.close()
+
+bed = open(options.CHG)
+uit = open(options.CHGp, "w")
 for l in bed:
     if l.startswith("chr\tstart"):
         uit.write(l)
