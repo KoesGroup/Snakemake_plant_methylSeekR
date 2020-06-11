@@ -15,7 +15,7 @@ option_list = list(
   make_option(c("-y", "--CWGout"), type="character", default="None", help="methyl calling output for CWG", metavar="character"),
   make_option(c("-z", "--CHHout"), type="character", default="None", help="methyl calling output for CHH", metavar="character"),
   make_option(c("-u", "--CHGout"), type="character", default="None", help="methyl calling output for CHG", metavar="character"),
-  make_option(c("-l", "--upperLMR"), type="double", default=50.0, help="upperlimit to be LMR", metavar="double")
+  make_option(c("-l", "--upperLMR"), type="double", default=50.0, help="upperlimit to be LMR", metavar="double"),
   make_option(c("-n", "--CpGnumber"), type="integer", default=4, help="upperlimit to be LMR", metavar="double")
 ) 
 
