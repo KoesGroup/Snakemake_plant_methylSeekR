@@ -75,6 +75,7 @@ rule all:
         expand(WORKING_DIR + "results/{sample}_CCG_UMRLMR_plant.bed", sample = SAMPLES),
         expand(WORKING_DIR + "results/{sample}_CWG_UMRLMR_plant.bed", sample = SAMPLES),
         expand(WORKING_DIR + "results/{sample}_CHH_UMRLMR_plant.bed", sample = SAMPLES),
+        expand(WORKING_DIR + "results/{sample}_Active_regions.bed", sample = SAMPLES),
 
     message:
         "Job done!\n\n\t#=========================#\n\t|       tijs bliek        |\n\t| University of Amsterdam |\n\t#=========================#\n"
@@ -240,7 +241,7 @@ rule methylSeekR:
         CCG         = WORKING_DIR + "results/{sample}_CCG.msr",
         CWG         = WORKING_DIR + "results/{sample}_CWG.msr",
         CHH         = WORKING_DIR + "results/{sample}_CHH.msr",
-        CHG         = WORKING_DIR + "results/{sample}_CHG.msr"
+        CHG         = WORKING_DIR + "results/{sample}_CHG.msr",
         seed        = WORKING_DIR + "BSgenome_seed",
         discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
@@ -261,12 +262,12 @@ rule methylSeekR:
         "--CCGin {input.CCG} "
         "--CWGin {input.CWG} "
         "--CHHin {input.CHH} "
-        "--CHGin {input.CHH} "
+        "--CHGin {input.CHG} "
         "--CGout {output.CG} "
         "--CCGout {output.CCG} "
         "--CWGout {output.CWG} "
-        "--CHHout {output.CHH}"
-        "--CHHout {output.CHG}"
+        "--CHHout {output.CHH} "
+        "--CHGout {output.CHG}"
 
 ###################################
 # Redefine regions to plants sample
@@ -296,9 +297,29 @@ rule reDefine_regions:
         "--CCG {input.CCG} "
         "--CWG {input.CWG} "
         "--CHH {input.CHH} "
-        "--CHH {input.CHG} "
+        "--CHG {input.CHG} "
         "--CGp {output.CG} "
         "--CCGp {output.CCG} "
         "--CWGp {output.CWG} "
         "--CHHp {output.CHH} "
-        "--CHHp {output.CHG}"
+        "--CHGp {output.CHG}"
+
+#############################
+# find active genomic regions
+#############################
+
+rule get_active_regions:
+    input:
+        CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR_plant.bed",
+        CHG = WORKING_DIR + "results/{sample}_CHG_UMRLMR_plant.bed",
+    output:
+        CG  = WORKING_DIR + "results/{sample}_CG_UMR_plant.bed",
+        CHG = WORKING_DIR + "results/{sample}_CHG_UMR_plant.bed",
+        AR  = WORKING_DIR + "results/{sample}_Active_regions.bed
+    message:
+        "running reDefineRegions.py"
+    shell: """
+grep UMR {input.CG} > {output.CG}
+grep UMR {input.CHG} > {output.CHG}
+bedtools intersect -a {output.CG} -b {output.CHG} > {output.AR}
+"""
