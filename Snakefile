@@ -195,12 +195,14 @@ rule split_methylation_types:
         CG  = WORKING_DIR + "results/{sample}_CG.msr",
         CCG = WORKING_DIR + "results/{sample}_CCG.msr",
         CWG = WORKING_DIR + "results/{sample}_CWG.msr",
-        CHH = WORKING_DIR + "results/{sample}_CHH.msr"
+        CHH = WORKING_DIR + "results/{sample}_CHH.msr",
+        CHG = WORKING_DIR + "results/{sample}_CHG.msr"
     shell:"""
-zless {input.atcgmap} | awk '{{if ($4 == "CG") print}}' | awk '{{ if ($2=="C") pr"\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CG}
+zless {input.atcgmap} | awk '{{if ($4 == "CG") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHG" && $5 == "CC") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CCG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHG" && $5 ~ /C[AT]/) print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CWG}
 zless {input.atcgmap} | awk '{{if ($4 == "CHH") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CHH}
+zless {input.atcgmap} | awk '{{if ($4 == "CHG") print}}' | awk '{{ if ($2=="C") print $1 "\\t" $3 "\\t" $7+$8 "\\t" $8; if ($2=="G") print $1 "\\t" $3 "\\t" $11+$14 "\\t" $14}}' > {output.CHG}
 """
 
 
@@ -238,6 +240,7 @@ rule methylSeekR:
         CCG         = WORKING_DIR + "results/{sample}_CCG.msr",
         CWG         = WORKING_DIR + "results/{sample}_CWG.msr",
         CHH         = WORKING_DIR + "results/{sample}_CHH.msr",
+        CHG         = WORKING_DIR + "results/{sample}_CHG.msr"
         seed        = WORKING_DIR + "BSgenome_seed",
         discription = WORKING_DIR + "BSgenomeGenome/DESCRIPTION",
         namespace   = WORKING_DIR + "BSgenomeGenome/NAMESPACE"
@@ -246,6 +249,7 @@ rule methylSeekR:
         CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
         CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.bed",
         CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.bed",
+        CHG = WORKING_DIR + "results/{sample}_CHG_UMRLMR.bed",
     params:
         LMR = config["UMRLMR"]["LMR"],
     message:
@@ -257,10 +261,12 @@ rule methylSeekR:
         "--CCGin {input.CCG} "
         "--CWGin {input.CWG} "
         "--CHHin {input.CHH} "
+        "--CHGin {input.CHH} "
         "--CGout {output.CG} "
         "--CCGout {output.CCG} "
         "--CWGout {output.CWG} "
         "--CHHout {output.CHH}"
+        "--CHHout {output.CHG}"
 
 ###################################
 # Redefine regions to plants sample
@@ -272,11 +278,13 @@ rule reDefine_regions:
         CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR.bed",
         CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR.bed",
         CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR.bed",
+        CHG = WORKING_DIR + "results/{sample}_CHG_UMRLMR.bed",
     output:
         CG  = WORKING_DIR + "results/{sample}_CG_UMRLMR_plant.bed",
         CCG = WORKING_DIR + "results/{sample}_CCG_UMRLMR_plant.bed",
         CWG = WORKING_DIR + "results/{sample}_CWG_UMRLMR_plant.bed",
         CHH = WORKING_DIR + "results/{sample}_CHH_UMRLMR_plant.bed",
+        CHG = WORKING_DIR + "results/{sample}_CHG_UMRLMR_plant.bed",
     params:
         UMR = config["UMRLMR"]["UMR"],
     message:
@@ -288,7 +296,9 @@ rule reDefine_regions:
         "--CCG {input.CCG} "
         "--CWG {input.CWG} "
         "--CHH {input.CHH} "
+        "--CHH {input.CHG} "
         "--CGp {output.CG} "
         "--CCGp {output.CCG} "
         "--CWGp {output.CWG} "
-        "--CHHp {output.CHH}"
+        "--CHHp {output.CHH} "
+        "--CHHp {output.CHG}"
