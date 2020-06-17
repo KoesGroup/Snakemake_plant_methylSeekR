@@ -59,6 +59,14 @@ def get_trimmed(wildcards):
     else:
         return [WORKING_DIR + "trimmed/" + wildcards.sample + "_R1_trimmed.fq.gz", WORKING_DIR + "trimmed/" + wildcards.sample + "_R2_trimmed.fq.gz"]
 
+def get_filenames(wildcards):
+    """ This function checks if sample is paired end or single end
+    and returns 1 or 2 names of the trimmed fastq files """
+    if sample_is_single_end(wildcards.sample):
+        return "-i " + WORKING_DIR + "trimmed/" + wildcards.sample + "_R1_trimmed.fq.gz"
+    else:
+        return "-1 " + WORKING_DIR + "trimmed/" + wildcards.sample + "_R1_trimmed.fq.gz -2 " + WORKING_DIR + "trimmed/" + wildcards.sample + "_R2_trimmed.fq.gz"
+
 
 #################
 # Desired outputs
@@ -144,6 +152,8 @@ rule BSseeker_build_index:
         "indexing genome"
     params:
         WORKING_DIR + "genome/genome"
+    conda:
+        "envs/python2.yaml"
     threads: 10
     shell:
         "python2 BSseeker2/bs_seeker2-build.py -f {input} && touch {output}"
@@ -158,15 +168,20 @@ rule BSseeker_mapping:
         log   = WORKING_DIR + "mapped/{sample}.bam.bs_seeker2_log"
     params:
         indexName  = WORKING_DIR + "genome/genome",
-        sampleName = "{sample}"
+        sampleName = "{sample}",
+        shellInput = get_filenames
+    conda:
+        "envs/python28.yaml"
     message:
         "mapping reads to genome to bam files."
     threads: 10
-    run:
-        if sample_is_single_end(params.sampleName):
-            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -i {input[0]} -g {input.genome} -o {output.bams}")
-        else:
-            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -1 {input[0]} -2 {input[1]} -g {input.genome} -o {output.bams}")
+    shell:
+       "python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} {params.shellInput} -g {input.genome} -o {output.bams}"
+#        print(shellInput)
+#        if sample_is_single_end(params.sampleName):
+#            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -i {input[0]} -g {input.genome} -o {output.bams}")
+#        else:
+#            shell("python2 BSseeker2/bs_seeker2-align.py --bt-p {threads} -1 {input[0]} -2 {input[1]} -g {input.genome} -o {output.bams}")
 
 
 #####################################################
@@ -184,6 +199,8 @@ rule methylation_calling:
     params:
         prefix = "results/{sample}",
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/genome.fasta.gz_bowtie/"
+    conda:
+        "envs/python28.yaml"
     threads: 10
     shell:
         "python2 BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
@@ -226,6 +243,8 @@ rule forge_genome_data_package:
         common_name     = config["forge"]["common_name"],
         genome_dir      = config["forge"]["genome_dir"],
         BSgenomeObjname = config["forge"]["BSgenomeObjname"]
+    conda:
+        "envs/forge_genome.yaml"
     shell:
         "python scripts/ForgeBSgenome.py "
         "-g {input.genome} "
@@ -253,6 +272,8 @@ rule methylSeekR:
         CHG = WORKING_DIR + "results/{sample}_CHG_UMRLMR.bed",
     params:
         LMR = config["UMRLMR"]["LMR"],
+    conda:
+        "envs/methylseekr.yaml"
     message:
         "running R-sript methylSeekR.R"        
     shell:
@@ -315,11 +336,11 @@ rule get_active_regions:
     output:
         CG  = WORKING_DIR + "results/{sample}_CG_UMR_plant.bed",
         CHG = WORKING_DIR + "results/{sample}_CHG_UMR_plant.bed",
-        AR  = WORKING_DIR + "results/{sample}_Active_regions.bed
+        AR  = WORKING_DIR + "results/{sample}_Active_regions.bed"
     message:
         "running reDefineRegions.py"
     shell: """
 grep UMR {input.CG} > {output.CG}
 grep UMR {input.CHG} > {output.CHG}
-bedtools intersect -a {output.CG} -b {output.CHG} > {output.AR}
+bedtools intersect -wao -a {output.CG} -b {output.CHG} > {output.AR}
 """
