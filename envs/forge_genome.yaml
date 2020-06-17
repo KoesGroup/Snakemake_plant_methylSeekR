@@ -1,0 +1,7 @@
+channels:
+  - defaults
+  - bioconda
+dependencies:
+  - bioconductor-bsgenome
+  - r-optparse
+  - bioconductor-biostrings
