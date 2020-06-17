@@ -1,6 +1,6 @@
 library("BSgenomeGenome", lib.loc="localR")
-library("mhsmm", lib.loc="localR")
-library("MethylSeekR", lib.loc="localR")
+library("mhsmm")
+library("MethylSeekR")
 library(optparse)
 
 # arguments to provide
