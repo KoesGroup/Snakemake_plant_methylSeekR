@@ -1,0 +1,10 @@
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - r-optparse
+  - bioconductor-methylseekr
+  - r-base=4.0.0
+  - r-mhsmm=0.4.16
+  - r-mvtnorm=1.1_0
