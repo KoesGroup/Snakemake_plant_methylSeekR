@@ -1,0 +1,8 @@
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - python=2.7
+  - pysam
+  - bowtie
