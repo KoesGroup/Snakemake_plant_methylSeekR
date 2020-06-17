@@ -74,6 +74,8 @@ if go:
 else:
     print("No fasta header found!.")
 
+os.system("gzip " + genomeFasta)
+
 os.chdir("..")
 ## create seed file
 seedFile = open("BSgenome_seed", "w")
@@ -115,6 +117,6 @@ os.system(command)
 command = "mkdir localR"
 print(command)
 os.system(command)
-command = "R CMD INSTALL -l localR" + options.package_name
+command = "R CMD INSTALL -l localR " + options.package_name
 print(command)
 os.system(command)
