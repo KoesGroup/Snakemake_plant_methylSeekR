@@ -33,7 +33,7 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 ## Conda environment
 
 First, you need to create an environment for the use of Snakemake with [Conda package manager](https://conda.io/docs/using/envs.html).
-1. Create a virtual environment named "BSanalysis" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file ~/envs/global_env.yaml`
+1. Create a virtual environment named "BSanalysis" from the `global_env.yaml` file with the following command: `conda env create --name BSanalysis --file envs/global_env.yaml`
 2. Then, activate this virtual environment with `conda activate BSanalysis`
 
 The Snakefile will then take care of installing and loading the packages and software required by each step of the pipeline.
