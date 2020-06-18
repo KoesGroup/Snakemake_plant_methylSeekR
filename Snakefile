@@ -153,7 +153,7 @@ rule BSseeker_build_index:
     params:
         WORKING_DIR + "genome/genome"
     conda:
-        "envs/python2.yaml"
+        "envs/bs_seeker2.yaml"
     threads: 10
     shell:
         "python2 BSseeker2/bs_seeker2-build.py -f {input} && touch {output}"
@@ -171,7 +171,7 @@ rule BSseeker_mapping:
         sampleName = "{sample}",
         shellInput = get_filenames
     conda:
-        "envs/python28.yaml"
+        "envs/bs_seeker2.yaml"
     message:
         "mapping reads to genome to bam files."
     threads: 10
@@ -200,7 +200,7 @@ rule methylation_calling:
         prefix = "results/{sample}",
         index  = WORKING_DIR + "BSseeker2/bs_utils/reference_genomes/genome.fasta.gz_bowtie/"
     conda:
-        "envs/python28.yaml"
+        "envs/bs_seeker2.yaml"
     threads: 10
     shell:
         "python2 BSseeker2/bs_seeker2-call_methylation.py -i {input.bams} -o {params.prefix} -d {params.index}"
