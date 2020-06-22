@@ -5,6 +5,6 @@ channels:
 dependencies:
   - r-optparse
   - bioconductor-methylseekr
-  - r-base=4.0.0
+  - r-base
   - r-mhsmm=0.4.16
   - r-mvtnorm=1.1_0
