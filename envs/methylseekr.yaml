@@ -7,4 +7,4 @@ dependencies:
   - bioconductor-methylseekr
   - r-base
   - r-mhsmm=0.4.16
-  - r-mvtnorm=v1.0_10
+  - r-mvtnorm=1.0_10
