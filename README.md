@@ -13,8 +13,6 @@ Identification of regions of low or no methylation is based on [MethylSeekR](htt
 
 
 
-
-
 # Content of the repository
 
 - **Snakefile**, containing the targeted output and the rules to generate them from the input files.
@@ -57,12 +55,13 @@ For cluster execution, please refer to the [Snakemake reference](https://snakema
 Please pay attention to `--use-conda`, it is required for the installation and loading of the dependencies used by the rules of the pipeline.
 
 # Main outputs
-- **bed files** containing the unmethylated (UMR) and low methylated (LMR) regions.
+- **bed files** containing the unmethylated (UMR) and low methylated (LMR) regions, separated in CG, CCG, CWG, CHG and CHH.
+- **bed file** containing "active" regions, ea regions in wich C's in both CG and CHG context are unmethylated.
 - **log files** containing reports of the fastP, BSseeker2 and methylcalling steps.
 
 # Parameters
 
-The settings as given, is optimized to plant samples.
+The settings as given, is optimized to plant samples. Can be altered in the config.yaml.
 
 
 # Directed Acyclic Graph of jobs
