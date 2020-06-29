@@ -37,7 +37,7 @@ First, you need to create an environment for the use of Snakemake with [Conda pa
 The Snakefile will then take care of installing and loading the packages and software required by each step of the pipeline.
 
 ## Configuration file
-The `~/configs.yaml` file specifies the sample list (sample.tsv), the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
+The `configs.yaml` file specifies the sample list (sample.tsv), the genomic reference fasta file to use, the directories to use, etc. This file is then used to build parameters in the main `Snakefile`.
 
 ## Snakemake execution
 The Snakemake pipeline/workflow management system reads a master file (often called `Snakefile`) to list the steps to be executed and defines their order.
